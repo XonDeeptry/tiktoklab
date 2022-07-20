@@ -3,6 +3,8 @@
 
 :root {
     --primary: #fe2c55;
+    --black: #000;
+    --text-color: #333;
 
     // Đặt biến globals để có thể tái sử dụng trong các components
     --default-layout-header-height: 60px;
@@ -24,4 +26,18 @@ body {
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+}
+
+// Toàn bộ thẻ button, input và các cả các tag có attribute tabindex sẽ bị ảnh hưởng bởi css này.
+button,
+input,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+
+// Toàn bộ thẻ a có thuộc tính href sẽ bị ảnh hưởng
+a[href] {
+    color: var(--text-color);
+    text-decoration: none;
 }

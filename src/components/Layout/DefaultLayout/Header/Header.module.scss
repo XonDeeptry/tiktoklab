@@ -1,4 +1,9 @@
 .wrapper {
+    --search-border-radius: 92px;
+    --search-height: 46px;
+    --search-top-spacer: 9px;
+    --search-button-width: 52px;
+
     height: var(--default-layout-header-height);
     width: 100%;
     display: flex;
@@ -8,6 +13,78 @@
 
 .inner {
     height: 100%;
-    width: varr(--default-layout-width);
-    background-color: rgb(187, 183, 183);
+    width: var(--default-layout-width);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+}
+
+.search {
+    position: relative;
+    width: 361px;
+    height: var(--search-height);
+    padding-left: 16px;
+    background-color: rgba(22, 24, 35, 0.06);
+    border-radius: var(--search-border-radius);
+    display: flex;
+    border: 1.5px solid transparent;
+
+    input {
+        flex: 1;
+        color: var(--black);
+        height: 100%;
+        font-size: 1.6rem;
+        // Clear ô vuông của input
+        background-color: transparent;
+        caret-color: var(--primary);
+    }
+    // Truyền tới thẻ search btn khi không có placeholder (tức có input type vào)
+    input:not(:placeholder-shown) ~ .searcth-btn {
+        color: rgba(22, 24, 35, 0.75);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: var(--search-top-spacer);
+        right: var(--search-button-width);
+        height: calc(var(--search-height) - var(--search-top-spacer) * 2);
+        width: 1px;
+        background-color: rgba(22, 24, 35, 0.12);
+    }
+    // Khi thẻ input bên trong được focus với việc tràn của CSS thẻ div sẽ được active attribute này
+    &:focus-within {
+        border-color: rgba(22, 24, 35, 0.2);
+    }
+}
+
+.clear-btn,
+.loading {
+    position: absolute;
+    right: calc(var(--search-button-width) + 16px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(22, 24, 35, 0.34);
+}
+
+.searcth-btn {
+    width: var(--search-button-width);
+    height: 100%;
+    border-top-right-radius: var(--search-border-radius);
+    border-bottom-right-radius: var(--search-border-radius);
+    font-size: 2rem;
+    color: rgba(22, 24, 35, 0.34);
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+        cursor: pointer;
+    }
+
+    &:active {
+        background-color: rgba(22, 24, 35, 0.06);
+    }
 }
