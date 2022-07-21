@@ -3,16 +3,41 @@ import Tippy from '@tippyjs/react/headless';
 import { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCircleXmark,
+    faSpinner,
+    faMagnifyingGlass,
+    faRightToBracket,
+    faEllipsisVertical,
+    faEarth,
+    faCircleQuestion,
+    faKeyboard,
+} from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss';
 import images from '~/assests/images';
-import { Wrapper as PopperWrapper } from '~/components/Popper';
+import { Wrapper as PopperWrapper, Menu } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
 
 // bind styles hỗ trợ viết classname dưới dạng dấu -
 const cx = classNames.bind(styles);
+
+const MENU_ITEM = [
+    {
+        icon: <FontAwesomeIcon icon={faEarth} />,
+        title: 'Tiếng Việt',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        title: 'Feedbacks',
+        to: '/feedback',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        title: 'Keyboard shortcuts',
+    },
+];
 
 function Header() {
     // Tạo state
@@ -63,6 +88,11 @@ function Header() {
                     <Button primary leftIcon={<FontAwesomeIcon icon={faRightToBracket} />}>
                         Login
                     </Button>
+                    <Menu items={MENU_ITEM}>
+                        <button className={cx('more-btn')}>
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </button>
+                    </Menu>
                 </div>
             </div>
         </header>

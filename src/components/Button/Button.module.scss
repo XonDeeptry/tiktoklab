@@ -15,10 +15,6 @@
     // Các thành phần bên trong wrapper sẽ tự động căn lề trái 8px
     user-select: none;
 
-    + .wrapper {
-        margin-left: 8px;
-    }
-
     // button state
     &.disabled {
         pointer-events: none;
@@ -29,6 +25,12 @@
 .icon + .title,
 .title + .icon {
     margin-left: 8px;
+}
+
+.icon {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
 }
 
 // Button types
