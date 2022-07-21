@@ -3,10 +3,13 @@
     width: 224px;
 
     // Nguyên nhân đưa vào bên trong như sau:
-    //Tippy của Menu sẽ render với parrent là Menu-List -> button sẽ có cấp ngang hàng với menu-item. Do đó với việc đặt bên ngoài nó sẽ hiểu button là children của menu-item dẫn đến wrapper của button sẽ được render sau và ghi đè lên css của menu-item. Do đó chưa vào trong menu-list nó sẽ hiểu là ngang cấp và ghi đè menu-item lên button.
+    //Tippy của Menu sẽ render với parrent là Menu-List -> button sẽ có cấp ngang hàng với menu-item.
+    //Do đó với việc đặt bên ngoài nó sẽ hiểu button là children của menu-item dẫn đến wrapper của button sẽ được render sau và ghi đè lên css của menu-item. Do đó chưa vào trong menu-list nó sẽ hiểu là ngang cấp với button và ghi đè menu-item lên button.
+    // Khi đặt ngoài menu-list nó sẽ được hiểu là bằng cấp với menu-list
     // menu Items
     .menu-item {
         margin-left: 0;
+        max-height: 42px;
         width: 100%;
         justify-content: flex-start;
         font-weight: 550;
@@ -21,4 +24,25 @@
 
 .menu-popper {
     padding-bottom: 8px;
+}
+
+// Header component styles
+.header {
+    position: relative;
+    height: 50px;
+    margin-top: -8px;
+}
+
+.back-btn {
+    width: 50px;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

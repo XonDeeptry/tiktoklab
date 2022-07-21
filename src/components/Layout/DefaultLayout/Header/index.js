@@ -24,9 +24,39 @@ import Button from '~/components/Button';
 const cx = classNames.bind(styles);
 
 const MENU_ITEM = [
+    // Mất cứ menu nào có children sẽ được coi là có submenu
     {
         icon: <FontAwesomeIcon icon={faEarth} />,
         title: 'Tiếng Việt',
+        children: {
+            title: 'Language',
+            data: [
+                { code: 'en', title: 'English', type: 'language' },
+                {
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                    type: 'language',
+                    children: {
+                        title: 'Language',
+                        data: [
+                            { code: 'en', title: 'English 1' },
+                            {
+                                code: 'vi',
+                                title: 'Tiếng Việt 1',
+                                type: 'language',
+                                children: {
+                                    title: 'Language',
+                                    data: [
+                                        { code: 'en', title: 'English 2', type: 'language' },
+                                        { code: 'vi', title: 'Tiếng Việt 2', type: 'language' },
+                                    ],
+                                },
+                            },
+                        ],
+                    },
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faCircleQuestion} />,
@@ -49,6 +79,17 @@ function Header() {
         }, 0);
     });
 
+    // handle logic
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
+                // handle change language
+                break;
+            default:
+                console.log(menuItem);
+        }
+    };
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -58,7 +99,7 @@ function Header() {
                 <Tippy
                     interactive={true}
                     // Hiển thi thị searchResult len > 0
-                    visible={searchResult.length > 0}
+                    // visible={searchResult.length > 0}
                     // Giao diện của dropdown
                     render={(attrs) => (
                         <div className={cx('search-results')} tabIndex="-1" {...attrs}>
@@ -88,7 +129,7 @@ function Header() {
                     <Button primary leftIcon={<FontAwesomeIcon icon={faRightToBracket} />}>
                         Login
                     </Button>
-                    <Menu items={MENU_ITEM}>
+                    <Menu items={MENU_ITEM} onChange={handleMenuChange}>
                         <button className={cx('more-btn')}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
                         </button>
