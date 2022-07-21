@@ -20,9 +20,10 @@ function Menu({ children, items = [], onChange = defaultFn }) {
      * Ta có currentMenu chính là hisotry có indexes cuối cùng của mảng
      * Tại function map:
      *  Kiểm tra các thành phần con bên trong history có chứa children hay không.
-     *  Chacwqs chắn trả lại Menu tuy nhiên với Menu có các thành phần con bên trong thực hiện setHistory bằng cách bảo lưu dữ liệu hiện có và bổ sung children của item đó.
-     *  Re-render currentMenu vẫn được bảo lưu dữ liệu cũ tuy nhiên mảng được bổ sung phần tử mới và giá trị của currentMenu thay đổi thành phần tử cuối cùng của mảng history mới. Map lại dữ liệu và hiển thị ra màn hình.
-     * Chú ý việc đặt key ở đây. Do history ban đầu được đặt key là data. nên nó có thể query được với dữ liệu của nó. TUy nhiên khi thay đổi key này nó sẽ không match đc dữ liệu nó được nhận vào dẫn tới lỗi. (dữ liệu được truyền vào từ mảng của header cũng cần có key là data.)
+     *  Chắc chắn trả lại Menu tuy nhiên với Menu có các thành phần con bên trong thực hiện setHistory bằng cách bảo lưu dữ liệu hiện có và bổ sung children của item đó.
+     *  setHistory được goi dẫn tới history lúc này sẽ được nạp vào key children của phần tử thuộc mảng. trong vòng này current sẽ được set bằng phần tử thứ 2 của mảng (children đang được ghi vào phần tử thứ 2)
+     *  data ở đây chính là bằng children của mảng items. tiếp tục map và render ra bởi Buttron
+     * Chú ý việc đặt key ở đây. Do history ban đầu được đặt key là data. nên nó có thể query được với dữ liệu của nó. Tuy nhiên khi thay đổi key này nó sẽ không match đc dữ liệu nó được nhận vào dẫn tới lỗi. (dữ liệu được truyền vào từ mảng của header cũng cần có key là data.)
      */
     const [history, setHistory] = useState([{ data: items }]);
     // Lấy phần tử cuối cùng của mảng
@@ -53,7 +54,6 @@ function Menu({ children, items = [], onChange = defaultFn }) {
     return (
         <Tippy
             delay={[100, 500]}
-            visible
             interactive={true}
             placements="botton-end"
             render={(attrs) => (
@@ -72,7 +72,9 @@ function Menu({ children, items = [], onChange = defaultFn }) {
                         {renderItems()}
                     </PopperWrapper>
                 </div>
-            )}>
+            )}
+            // Khi không sử dụng menu nữa tự động reset về phần tử đầu tiên
+            onHide={() => setHistory((prev) => prev.slice(0, 1))}>
             {children}
         </Tippy>
     );
