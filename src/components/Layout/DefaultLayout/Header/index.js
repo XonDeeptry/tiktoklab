@@ -78,6 +78,32 @@ const MENU_ITEM = [
     },
 ];
 
+const userMenu = [
+    {
+        icon: <FontAwesomeIcon icon={faUser} />,
+        title: 'View profile',
+        to: '/@yourprofile',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCoins} />,
+        title: 'Get Coins',
+        to: '/coins',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faGear} />,
+        title: 'Settings',
+        to: '/settings',
+    },
+    ...MENU_ITEM,
+    {
+        icon: <FontAwesomeIcon icon={faSignOut} />,
+        title: 'Log Out',
+        to: '/logout',
+        // Sett thêm thuộc tính vào nút logout
+        separate: true,
+    },
+];
+
 function Header() {
     // Tạo state
     const [searchResult, setSearchResult] = useState([]);
@@ -101,32 +127,6 @@ function Header() {
                 console.log(menuItem);
         }
     };
-
-    const userMenu = [
-        {
-            icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'View profile',
-            to: '/@yourprofile',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faCoins} />,
-            title: 'Get Coins',
-            to: '/coins',
-        },
-        {
-            icon: <FontAwesomeIcon icon={faGear} />,
-            title: 'Settings',
-            to: '/settings',
-        },
-        ...MENU_ITEM,
-        {
-            icon: <FontAwesomeIcon icon={faSignOut} />,
-            title: 'Log Out',
-            to: '/logout',
-            // Sett thêm thuộc tính vào nút logout
-            separate: true,
-        },
-    ];
 
     return (
         <header className={cx('wrapper')}>
