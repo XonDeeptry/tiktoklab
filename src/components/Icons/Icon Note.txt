@@ -1,0 +1,2 @@
+Trong thư mục này ta sẽ viết components cho từng Icons để module hóa chúng. 
+Đảm bảo việc khi đổi màu giao diện các components này cũng sẽ được đổi màu theo.

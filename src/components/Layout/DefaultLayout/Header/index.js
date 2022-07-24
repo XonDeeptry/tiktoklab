@@ -13,8 +13,6 @@ import {
     faEarth,
     faCircleQuestion,
     faKeyboard,
-    faCloudUpload,
-    faMessage,
     faUser,
     faCoins,
     faGear,
@@ -24,10 +22,12 @@ import {
 import styles from './Header.module.scss';
 import 'tippy.js/dist/tippy.css';
 
-import images from '~/assests/images';
+import images from '~/assets/images';
 import { Wrapper as PopperWrapper, Menu } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
 import Button from '~/components/Button';
+import { UploadIcon, MessagesIcon, InboxIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 
 // bind styles hỗ trợ viết classname dưới dạng dấu -
 const cx = classNames.bind(styles);
@@ -168,7 +168,17 @@ function Header() {
                         <>
                             <Tippy content="Upload video" placement="bottom" delay={[0, 200]}>
                                 <button className={cx('action-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <UploadIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy content="Messages" placement="bottom" delay={[0, 200]}>
+                                <button className={cx('action-btn')}>
+                                    <MessagesIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy content="Inbox" placement="bottom" delay={[0, 200]}>
+                                <button className={cx('action-btn')}>
+                                    <InboxIcon />
                                 </button>
                             </Tippy>
                         </>
@@ -183,10 +193,14 @@ function Header() {
                     {/* Nếu có current user dùng userMenu nếu không dùng Menu Item */}
                     <Menu items={currentUser ? userMenu : MENU_ITEM} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            // Khi chưa sử dụng ref element này sẽ lỗi do Tippy cần có được ref của các thành phần bên trong DOM của các thành viên bên trong. Đảm bảo việc hiển thị tooltip chính xác.
+                            //Tippy sẽ xác định tọa độ của các child components để render ra giao diện.
+                            <Image
                                 className={cx('user-avatar')}
                                 alt="Nguyễn văn A"
-                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/557695794d1cb0b4a32322da33aac45d~c5_100x100.jpeg?x-expires=1658538000&amp;x-signature=OtYkAIcl8b4OXb3kZkWkWNch82M%3D"
+                                src="https://-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/557695794d1cb0b4a32322da33aac45d~c5_100x100.jpeg?x-expires=1658538000&amp;x-signature=OtYkAIcl8b4OXb3kZkWkWNch82M%3D"
+                                // Truyền fallback vào
+                                fallback="https://static.fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
                             />
                         ) : (
                             <button className={cx('more-btn')}>

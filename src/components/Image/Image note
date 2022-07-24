@@ -1,0 +1,2 @@
+Khởi tạo component Image đặt mặc định khi avtar bị lỗi
+Thay thế việc sử dụng thẻ img để có thể thoải mái tùy chỉnh hoặc khi source lỗi sử dụng default image để thay thế
