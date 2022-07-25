@@ -1,9 +1,14 @@
+// Logic library import
 import classNames from 'classnames/bind';
 
+// Layout library import
+
+// Layout import
 import styles from './DefaultLayout.module.scss';
 
-import Header from './Header';
-import Sidebar from './Sidebar';
+// Component import
+import Header from '~/components/Layout/Header';
+import Sidebar from '~/components/Layout/Sidebar';
 
 const cx = classNames.bind(styles);
 

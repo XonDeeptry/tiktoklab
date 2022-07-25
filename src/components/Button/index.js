@@ -1,7 +1,14 @@
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+// Logic library import
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+
+// Layout library import
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+
+// Layout import
 import styles from './Button.module.scss';
+
+// Component import
 
 const cx = classNames.bind(styles);
 
