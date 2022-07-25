@@ -1,13 +1,10 @@
+// Logic library import
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
-import HeadlessTippy from '@tippyjs/react/headless';
-import { useState, useEffect } from 'react';
 
+// Layout library import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-    faCircleXmark,
-    faSpinner,
-    faMagnifyingGlass,
     faRightToBracket,
     faEllipsisVertical,
     faEarth,
@@ -19,15 +16,17 @@ import {
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 
+// Layout import
 import styles from './Header.module.scss';
 import 'tippy.js/dist/tippy.css';
 
+// Component import
 import images from '~/assets/images';
-import { Wrapper as PopperWrapper, Menu } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
+import { Menu } from '~/components/Popper';
 import Button from '~/components/Button';
 import { UploadIcon, MessagesIcon, InboxIcon } from '~/components/Icons';
 import Image from '~/components/Image';
+import Search from '../Search';
 
 // bind styles hỗ trợ viết classname dưới dạng dấu -
 const cx = classNames.bind(styles);
@@ -105,17 +104,9 @@ const userMenu = [
 ];
 
 function Header() {
-    // Tạo state
-    const [searchResult, setSearchResult] = useState([]);
+    // Tạo state đã chuyển sang component search tránh việc phải re-render cả component không liên quan
 
     const currentUser = true;
-
-    // Fake API for array
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1, 2, 3]);
-        }, 0);
-    });
 
     // handle logic
     const handleMenuChange = (menuItem) => {
@@ -134,34 +125,11 @@ function Header() {
                 <div className={cx('logo')}>
                     <img src={images.logo} alt="Tiktok" />
                 </div>
-                <HeadlessTippy
-                    interactive={true}
-                    // Hiển thi thị searchResult len > 0
-                    // visible={searchResult.length > 0}
-                    // Giao diện của dropdown
-                    render={(attrs) => (
-                        <div className={cx('search-results')} tabIndex="-1" {...attrs}>
-                            {/* Import Wrapper của Popper và tùy chỉnh tại css của Header theo nhu cầu */}
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>Accounts</h4>
-                                <AccountItem />
-                                <AccountItem />
-                                <AccountItem />
-                            </PopperWrapper>
-                        </div>
-                    )}>
-                    <div className={cx('search')}>
-                        <input placeholder="Search accounts and Videos" spellCheck="false" />
-                        <button className={cx('clear-btn')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
 
-                        <button className={cx('searcth-btn')}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
-                </HeadlessTippy>
+                {/* Search Component đã tách ra components riêng và được import vào */}
+                <Search />
+
+                {/* Action pannel */}
                 <div className={cx('actions')}>
                     {/* Nếu current user true = logged in then render information pannel, if false then render loggin pannel */}
                     {currentUser ? (

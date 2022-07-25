@@ -1,8 +1,14 @@
+// Logic library import
 import { useState, forwardRef } from 'react';
 import classNames from 'classnames';
 
-import images from '~/assets/images';
+// Layout library import
+
+// Layout import
 import styles from './Image.module.scss';
+
+// Component import
+import images from '~/assets/images';
 
 // function Image({ ...props }) {
 //     return <img {...props} />;

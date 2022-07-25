@@ -1,8 +1,14 @@
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+// Logic library import
 import classNames from 'classnames/bind';
+// Layout library import
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+
+// Layout import
 import styles from './Menu.module.scss';
+
+// Component import
 
 const cx = classNames.bind(styles);
 

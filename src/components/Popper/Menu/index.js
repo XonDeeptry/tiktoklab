@@ -1,8 +1,14 @@
-import Tippy from '@tippyjs/react/headless';
-import classNames from 'classnames/bind';
-import styles from './Menu.module.scss';
+// Logic library import
 import { useState } from 'react';
+import classNames from 'classnames/bind';
 
+// Layout library import
+import Tippy from '@tippyjs/react/headless';
+
+// Layout import
+import styles from './Menu.module.scss';
+
+// Component import
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
 import Header from './Header';
