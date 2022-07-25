@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 // Layout library import
 import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 // Layout import
 import styles from './Search.module.scss';
@@ -22,15 +22,32 @@ function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
 
-    // Fake API for array
+    // Call API from server
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1, 2, 3]);
-        }, 0);
-    });
+        // API được set giá trị bắt buộc phải có ở query. Tuy nhiên giá trị mặc định của searchValue là chuỗi rỗng dẫn tới lỗi.
+        // Kiểm tra nếu searchValue không có return luôn không gọi API. Khi nào searchValue có giá trị thì mới tiến hành gọi API
+        // Ở back end thường chuỗi rỗng như space sẽ bị trim => xảy ra lỗi do truyền chuỗi rỗng. Thực hiện gọi hàm trim để cắt chuỗi rỗng
+        if (!searchValue.trim()) {
+            // Khi không có dữ liệu thì searchResult (mảng chứa các thành phần search) bằng mảng rỗng
+            setSearchResult([]);
+            return;
+        }
+
+        setLoading(true);
+
+        // khi truyền vào ký tự đặc biệt sẽ dẫn tới một số lỗi. liên quan tới logic và qui ước. CÓ thể thực hiện việc mã hóa để xử lý lỗi này. nó sẽ mã hóa các ký tự đặc biệt thành ký tự hợp lệ trên URL
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((res) => res.json())
+            .then((res) => {
+                setSearchResult(res.data);
+                setLoading(false);
+            });
+        // Neues searchValue thay đổi render lại
+    }, [searchValue]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -57,9 +74,10 @@ function Search() {
                     {/* Import Wrapper của Popper và tùy chỉnh tại css của Header theo nhu cầu */}
                     <PopperWrapper>
                         <h4 className={cx('search-title')}>Accounts</h4>
-                        <AccountItem />
-                        <AccountItem />
-                        <AccountItem />
+                        {/* Render ra giao diện search */}
+                        {searchResult.map((result) => (
+                            <AccountItem key={result.id} data={result} />
+                        ))}
                     </PopperWrapper>
                 </div>
             )}>
@@ -75,13 +93,13 @@ function Search() {
                     onFocus={() => setShowResult(true)}
                 />
                 {/* Converrt searchValue to boolean đặt điều khiện khi có vaue mới hiển thị button xóa */}
-                {!!searchValue && (
+                {!!searchValue && !loading && (
                     // Lắng nghe sự kiện onClick và setSearchValue trở thành chuỗi rỗng thông qua method handleClear
                     <button className={cx('clear-btn')} onClick={handleClear}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>
                 )}
-                {/* <FontAwesomeIcon icon={faSpinner} className={cx('loading')} /> */}
+                {loading && <FontAwesomeIcon icon={faSpinner} className={cx('loading')} />}
 
                 <button className={cx('searcth-btn')}>
                     <SearchIcon />

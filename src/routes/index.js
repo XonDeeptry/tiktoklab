@@ -1,5 +1,5 @@
 // Layouts
-import { HeaderOnly} from '~/components/Layout';
+import { HeaderOnly } from '~/components/Layout';
 
 // Pages
 import Home from '~/pages/Home';
@@ -8,19 +8,17 @@ import Profile from '~/pages/Profile';
 import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';
 
-
 // Không cần đăng nhập vẫn cho phép truy cập
 const publicRoutes = [
-    {path: '/', component: Home},
-    {path: '/Following', component: Following},
-    {path: '/Profile', component: Profile},
-    {path: '/Upload', component: Upload, layout: HeaderOnly},
-    {path: '/Search', component: Search, layout: null},
-]
+    { path: '/', component: Home },
+    { path: '/Following', component: Following },
+    // @ là dấu cố định và nickname là pattern để redirect lấy từ Link
+    { path: '/@:nickname', component: Profile },
+    { path: '/Upload', component: Upload, layout: HeaderOnly },
+    { path: '/Search', component: Search, layout: null },
+];
 
 // Bắt buộc phải đăng nhập nếu không redirect.
-const privateRoutes = [
+const privateRoutes = [];
 
-]
-
-export {publicRoutes , privateRoutes}
+export { publicRoutes, privateRoutes };

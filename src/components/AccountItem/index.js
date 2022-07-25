@@ -1,5 +1,6 @@
 // Logic library import
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 
 // Layout library import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,18 +14,19 @@ import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
-function AccountItem() {
+// Nhận dữ liệu được truyền vào từ API
+function AccountItem({ data }) {
     return (
-        <div className={cx('wrapper')}>
-            <Image className={cx('avatar')} src="" alt="Default Avatar" />
+        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
+            <Image className={cx('avatar')} src={data.avatar} alt={data.full_name} />
             <div className={cx('info')}>
                 <p className={cx('name')}>
-                    <span>Xơn deeptry</span>
-                    <FontAwesomeIcon icon={faCircleCheck} className={cx('check')} />
+                    <span>{data.full_name}</span>
+                    {data.tick && <FontAwesomeIcon icon={faCircleCheck} className={cx('check')} />}
                 </p>
-                <span className={cx('username')}>Account informations</span>
+                <span className={cx('username')}>{data.nickname}</span>
             </div>
-        </div>
+        </Link>
     );
 }
 
