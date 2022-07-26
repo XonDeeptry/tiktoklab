@@ -12,7 +12,7 @@ function useDebounce(value, delay) {
         return () => clearTimeout(handler);
         // Khi giá trị đầu vào thay đổi thì mới gọi useEffect
     }, [value]);
-    // Trả lại giá trị khi không thay đổi
+    // Trả lại giá trị khi không thay đổi.
     return debounceValue;
 }
 

@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 
 // Logic import
 import { useDebounce } from '~/hooks';
+import * as searchServices from '~/apiServices/searchServices';
 
 // Layout library import
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -45,13 +46,73 @@ function Search() {
 
         setLoading(true);
 
+        // SỬ DỤNG PROMISE ĐỂ GỌI API
         // khi truyền vào ký tự đặc biệt sẽ dẫn tới một số lỗi. liên quan tới logic và qui ước. CÓ thể thực hiện việc mã hóa để xử lý lỗi này. nó sẽ mã hóa các ký tự đặc biệt thành ký tự hợp lệ trên URL
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`)
+        // Gọi API truyền thống thông qua Promise
+        /**
+         * fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
                 setSearchResult(res.data);
                 setLoading(false);
             });
+         */
+        // Sử dụng axios để gọi API
+        // axios.get(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`);
+        // Sử dụng components axios được gán vào request
+        // request
+        //     .get(`users/search`, {
+        //         params: {
+        //             q: debounce,
+        //             type: 'less',
+        //         },
+        //     })
+        // Sử dụng components đã được xử lý bằng async await để không cần truy cập res.data.data
+        // request
+        //     .get(`users/search`, {
+        //         params: {
+        //             q: debounce,
+        //             type: 'less',
+        //         },
+        //     })
+        //     .then((res) => {
+        //         // Ở đây có thể thấy res trả về object của axios. Trong objec này có key là data
+        //         // console.log(res.data.data);
+        //         // setSearchResult(res.data.data);
+        //         // Có thể bỏ .data của axios do request đã trả về key .data của axios
+        //         // ở đây đang truy cập vào key data của key data trong axios
+        //         setSearchResult(res.data);
+        //         setLoading(false);
+        //     })
+        //     .catch(() => {
+        //         setLoading(false);
+        //     });
+
+        // SỬ DỤNG ASYNC AWAIT ĐỂ GỌI API.
+        // const fetchApi = async () => {
+        //     try {
+        //         const res = await request.get('users/search', {
+        //             params: {
+        //                 q: debounce,
+        //                 type: 'less',
+        //             },
+        //         });
+        //         setSearchResult(res.data);
+        //         setLoading(false);
+        //     } catch (error) {
+        //         setLoading(false);
+        //     }
+        // };
+        // fetchApi();
+        // Sử dụng component API services để gọi API
+
+        const fetchApi = async () => {
+            const result = await searchServices.search(debounce);
+            setSearchResult(result);
+            setLoading(false);
+        };
+        fetchApi();
+
         // Neues searchValue thay đổi render lại
     }, [debounce]);
 
