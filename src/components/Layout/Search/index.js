@@ -2,6 +2,9 @@
 import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 
+// Logic import
+import { useDebounce } from '~/hooks';
+
 // Layout library import
 import HeadlessTippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,6 +27,9 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    // Truyền giá trị searchValue và thời gian chờ vào custom hook. Sau đó thay thế trong useEffect và call API
+    const debounce = useDebounce(searchValue, 500);
+
     const inputRef = useRef();
 
     // Call API from server
@@ -31,7 +37,7 @@ function Search() {
         // API được set giá trị bắt buộc phải có ở query. Tuy nhiên giá trị mặc định của searchValue là chuỗi rỗng dẫn tới lỗi.
         // Kiểm tra nếu searchValue không có return luôn không gọi API. Khi nào searchValue có giá trị thì mới tiến hành gọi API
         // Ở back end thường chuỗi rỗng như space sẽ bị trim => xảy ra lỗi do truyền chuỗi rỗng. Thực hiện gọi hàm trim để cắt chuỗi rỗng
-        if (!searchValue.trim()) {
+        if (!debounce.trim()) {
             // Khi không có dữ liệu thì searchResult (mảng chứa các thành phần search) bằng mảng rỗng
             setSearchResult([]);
             return;
@@ -40,14 +46,14 @@ function Search() {
         setLoading(true);
 
         // khi truyền vào ký tự đặc biệt sẽ dẫn tới một số lỗi. liên quan tới logic và qui ước. CÓ thể thực hiện việc mã hóa để xử lý lỗi này. nó sẽ mã hóa các ký tự đặc biệt thành ký tự hợp lệ trên URL
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
                 setSearchResult(res.data);
                 setLoading(false);
             });
         // Neues searchValue thay đổi render lại
-    }, [searchValue]);
+    }, [debounce]);
 
     const handleClear = () => {
         setSearchValue('');
