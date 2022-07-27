@@ -1,6 +1,9 @@
 // Khi css blueprints nên sử dụng min width và height và tùy chỉnh cho các components khác.
 
 .popperwrapper {
+    display: flex;
+    flex-direction: column;
+
     width: 100%;
     // Set chiều cao tối đa để nó không vượt quá màn hình.
     max-height: min((100vh - 96px) - 60px, 734px);

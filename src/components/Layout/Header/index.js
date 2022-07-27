@@ -43,10 +43,14 @@ const MENU_ITEM = [
         children: {
             title: 'Language',
             data: [
-                { code: 'en', title: 'English', type: 'language' },
+                {
+                    code: 'en',
+                    title: 'English',
+                    type: 'language',
+                },
                 {
                     code: 'vi',
-                    title: 'Tiếng Việt',
+                    title: 'Tiếng Việt đa cấp',
                     type: 'language',
                     children: {
                         title: 'Language',
