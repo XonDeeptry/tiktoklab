@@ -21,7 +21,7 @@ import { SearchIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
-function Search() {
+function Search({ ...passPops }) {
     // Đặt state để xử lý two way binding
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
@@ -139,50 +139,56 @@ function Search() {
     };
 
     return (
-        <HeadlessTippy
-            interactive={true}
-            // Hiển thi thị searchResult len > 0, khi input được focus
-            visible={showResult && searchResult.length > 0}
-            // method của tippy khi không được focus
-            onClickOutside={handleHideRessult}
-            // Giao diện của dropdown
-            render={(attrs) => (
-                <div className={cx('search-results')} tabIndex="-1" {...attrs}>
-                    {/* Import Wrapper của Popper và tùy chỉnh tại css của Header theo nhu cầu */}
-                    <PopperWrapper>
-                        <h4 className={cx('search-title')}>Accounts</h4>
-                        {/* Render ra giao diện search */}
-                        {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} />
-                        ))}
-                    </PopperWrapper>
-                </div>
-            )}>
-            <div className={cx('search')}>
-                <input
-                    // Lấy ref của input để có thể thực thi focus khi xóa dữ liệu
-                    ref={inputRef}
-                    value={searchValue}
-                    placeholder="Search accounts and Videos"
-                    spellCheck="false"
-                    onChange={handleInput}
-                    // Khi focus lại show Popper search
-                    onFocus={() => setShowResult(true)}
-                />
-                {/* Converrt searchValue to boolean đặt điều khiện khi có vaue mới hiển thị button xóa */}
-                {!!searchValue && !loading && (
-                    // Lắng nghe sự kiện onClick và setSearchValue trở thành chuỗi rỗng thông qua method handleClear
-                    <button className={cx('clear-btn')} onClick={handleClear}>
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
-                )}
-                {loading && <FontAwesomeIcon icon={faSpinner} className={cx('loading')} />}
+        // Using wrapper <div> </div> or <span> </span> tag aroung the reference elemnt solves this by create a new parentNode context.
+        <div>
+            <HeadlessTippy
+                // Lấy tất cả các props được truyền vào tùy ý. Tuy nhiên những props trùng tên sẽ bị ghi đè bởi props khai báo sau.
+                {...passPops}
+                // appendTo={() => document.body}
+                interactive={true}
+                // Hiển thi thị searchResult len > 0, khi input được focus
+                visible={showResult && searchResult.length > 0}
+                // method của tippy khi không được focus
+                onClickOutside={handleHideRessult}
+                // Giao diện của dropdown
+                render={(attrs) => (
+                    <div className={cx('search-results')} tabIndex="-1" {...attrs}>
+                        {/* Import Wrapper của Popper và tùy chỉnh tại css của Header theo nhu cầu */}
+                        <PopperWrapper>
+                            <h4 className={cx('search-title')}>Accounts</h4>
+                            {/* Render ra giao diện search */}
+                            {searchResult.map((result) => (
+                                <AccountItem key={result.id} data={result} />
+                            ))}
+                        </PopperWrapper>
+                    </div>
+                )}>
+                <div className={cx('search')}>
+                    <input
+                        // Lấy ref của input để có thể thực thi focus khi xóa dữ liệu
+                        ref={inputRef}
+                        value={searchValue}
+                        placeholder="Search accounts and Videos"
+                        spellCheck="false"
+                        onChange={handleInput}
+                        // Khi focus lại show Popper search
+                        onFocus={() => setShowResult(true)}
+                    />
+                    {/* Converrt searchValue to boolean đặt điều khiện khi có vaue mới hiển thị button xóa */}
+                    {!!searchValue && !loading && (
+                        // Lắng nghe sự kiện onClick và setSearchValue trở thành chuỗi rỗng thông qua method handleClear
+                        <button className={cx('clear-btn')} onClick={handleClear}>
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
+                    {loading && <FontAwesomeIcon icon={faSpinner} className={cx('loading')} />}
 
-                <button className={cx('searcth-btn')} onMouseDown={(e) => e.preventDefault()}>
-                    <SearchIcon />
-                </button>
-            </div>
-        </HeadlessTippy>
+                    <button className={cx('searcth-btn')} onMouseDown={(e) => e.preventDefault()}>
+                        <SearchIcon />
+                    </button>
+                </div>
+            </HeadlessTippy>
+        </div>
     );
 }
 

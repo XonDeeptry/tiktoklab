@@ -8,12 +8,14 @@
     // Khi đặt ngoài menu-list nó sẽ được hiểu là bằng cấp với menu-list
     // menu Items
     .menu-item {
-        margin-left: 0;
-        max-height: 42px;
-        width: 100%;
         justify-content: flex-start;
-        font-weight: 550;
+
+        width: 100%;
+        max-height: 42px;
+        margin-left: 0;
         padding: 11px 16px;
+
+        font-weight: 550;
         // Nếu có separate sẽ bổ sung thêm border top
         &.separate {
             border-top: 1px solid rgba(22, 24, 35, 0.12);
@@ -30,9 +32,17 @@
     padding-bottom: 8px;
 }
 
+.menu-body {
+    // Tuwjd dộng xuất hiện thanh lăn chuột
+    overflow-y: auto;
+}
+
 // Header component styles
 .header {
     position: relative;
+
+    flex-shrink: 0;
+
     height: 50px;
     margin-top: -8px;
 }
@@ -41,6 +51,7 @@
     width: 50px;
     height: 100%;
     background-color: transparent;
+
     cursor: pointer;
 }
 
@@ -48,5 +59,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
+
     transform: translate(-50%, -50%);
 }
