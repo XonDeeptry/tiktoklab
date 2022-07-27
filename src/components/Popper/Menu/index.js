@@ -17,7 +17,7 @@ const cx = classNames.bind(styles);
 
 const defaultFn = () => {};
 // tạo một function trống để khi không nhận được truyền từ bên ngoài vào vẫn không khiến onchange là undefined dẫn tới lỗi.
-function Menu({ children, items = [], onChange = defaultFn }) {
+function Menu({ children, items = [], hideOnClick = true, onChange = defaultFn }) {
     /**Nguyên tắc hoạt động của menu nhiều lớp.
      * Tại giao diện đầu tiên mảng chỉ có 1 phần tử render phần tử đó.
      * Nếu phần tử có children key thì onClick được kích hoạt
@@ -62,6 +62,7 @@ function Menu({ children, items = [], onChange = defaultFn }) {
             delay={[100, 500]}
             interactive={true}
             placements="botton-end"
+            hideOnClick={hideOnClick}
             render={(attrs) => (
                 <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
                     <PopperWrapper className={cx('menu-popper')}>

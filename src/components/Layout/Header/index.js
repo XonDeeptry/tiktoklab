@@ -1,6 +1,10 @@
 // Logic library import
 import classNames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
+import { Link } from 'react-router-dom';
+
+// Logic import
+import routesConfig from '~/config/routes';
 
 // Layout library import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -123,12 +127,12 @@ function Header() {
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
-                    <img src={images.logo} alt="Tiktok" />
+                    <Link to={routesConfig.root} className={cx('logo-link')}>
+                        <img src={images.logo} alt="Tiktok" />
+                    </Link>
                 </div>
-
                 {/* Search Component đã tách ra components riêng và được import vào */}
                 <Search />
-
                 {/* Action pannel */}
                 <div className={cx('actions')}>
                     {/* Nếu current user true = logged in then render information pannel, if false then render loggin pannel */}
@@ -147,6 +151,7 @@ function Header() {
                             <Tippy content="Inbox" placement="bottom" delay={[0, 200]}>
                                 <button className={cx('action-btn')}>
                                     <InboxIcon />
+                                    <span className={cx('badge')}>12</span>
                                 </button>
                             </Tippy>
                         </>
@@ -159,16 +164,17 @@ function Header() {
                         </>
                     )}
                     {/* Nếu có current user dùng userMenu nếu không dùng Menu Item */}
-                    <Menu items={currentUser ? userMenu : MENU_ITEM} onChange={handleMenuChange}>
+                    {/* Ngăn chặn khi bấm vào component con của nó (ở đây là avatat) và vẫn ko xóa menu đi. Thực hiện tùy chỉnh ở components Menu tạo thêm props để có thể tái sử dụng không fix cứng */}
+                    <Menu items={currentUser ? userMenu : MENU_ITEM} onChange={handleMenuChange} hideOnClick={false}>
                         {currentUser ? (
                             // Khi chưa sử dụng ref element này sẽ lỗi do Tippy cần có được ref của các thành phần bên trong DOM của các thành viên bên trong. Đảm bảo việc hiển thị tooltip chính xác.
                             //Tippy sẽ xác định tọa độ của các child components để render ra giao diện.
                             <Image
                                 className={cx('user-avatar')}
                                 alt="Nguyễn văn A"
-                                src="https://-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-aiso/557695794d1cb0b4a32322da33aac45d~c5_100x100.jpeg?x-expires=1658538000&amp;x-signature=OtYkAIcl8b4OXb3kZkWkWNch82M%3D"
+                                src=""
                                 // Truyền fallback vào
-                                fallback="https://static.fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
+                                // fallback="https://static.fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
                             />
                         ) : (
                             <button className={cx('more-btn')}>
