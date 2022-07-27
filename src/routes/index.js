@@ -1,7 +1,7 @@
-import routesConfig from '~/config/routes';
+import config from '~/config';
 
 // Layouts
-import { HeaderOnly } from '~/components/Layout';
+import { HeaderOnly } from '~/layouts';
 
 // Pages
 import Home from '~/pages/Home';
@@ -12,12 +12,12 @@ import Search from '~/pages/Search';
 
 // Không cần đăng nhập vẫn cho phép truy cập
 const publicRoutes = [
-    { path: routesConfig.root, component: Home },
-    { path: routesConfig.following, component: Following },
+    { path: config.routes.root, component: Home },
+    { path: config.routes.following, component: Following },
     // @ là dấu cố định và nickname là pattern để redirect lấy từ Link
-    { path: routesConfig.profile, component: Profile },
-    { path: routesConfig.upload, component: Upload, layout: HeaderOnly },
-    { path: routesConfig.search, component: Search, layout: null },
+    { path: config.routes.profile, component: Profile },
+    { path: config.routes.upload, component: Upload, layout: HeaderOnly },
+    { path: config.routes.search, component: Search, layout: null },
 ];
 
 // Bắt buộc phải đăng nhập nếu không redirect.

@@ -1,11 +1,11 @@
 // Tách phần async gọi API ra thành component
 
-import * as request from '~/utils/request';
+import * as httpRequest from '~/utils/httpRequest';
 
 export const search = async (q, type = 'less') => {
     // Nạp thêm param vào axios.
     try {
-        const res = await request.get('users/search', {
+        const res = await httpRequest.get('users/search', {
             // chú ý các argument của async cần  cần match với API provider
             params: {
                 q,
