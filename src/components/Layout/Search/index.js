@@ -57,9 +57,10 @@ function Search() {
                 setLoading(false);
             });
          */
-        // Sử dụng axios để gọi API
+        // SỬ DỤNG AXIOS ĐỂ GỌI API
         // axios.get(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`);
-        // Sử dụng components axios được gán vào request
+        // Mặc định Axios sẽ convert json thành js do đó có thể skip phần convert đối với Promise
+        // SỬ DỤNG COMPONENT ĐỂ GỌI API
         // request
         //     .get(`users/search`, {
         //         params: {
@@ -76,7 +77,7 @@ function Search() {
         //         },
         //     })
         //     .then((res) => {
-        //         // Ở đây có thể thấy res trả về object của axios. Trong objec này có key là data
+        //         // Ở đây có thể thấy res trả về key data object của axios. Trong object này có key là data
         //         // console.log(res.data.data);
         //         // setSearchResult(res.data.data);
         //         // Có thể bỏ .data của axios do request đã trả về key .data của axios
@@ -104,8 +105,8 @@ function Search() {
         //     }
         // };
         // fetchApi();
-        // Sử dụng component API services để gọi API
 
+        // SỬ DỤNG COMPONENT API SERVICES ĐỂ GỌI API VỚI ASYNC VÀ AWAIT
         const fetchApi = async () => {
             const result = await searchServices.search(debounce);
             setSearchResult(result);
@@ -126,6 +127,15 @@ function Search() {
     // Khi thực thi tới đây chúng chưa tự động hiển thị ra khi focus lại ô input. Cần bổ sung thêm vào input.
     const handleHideRessult = () => {
         setShowResult(false);
+    };
+
+    const handleInput = (e) => {
+        // Handle input không cho phép nhập space là ký tự đầu tiên.
+        const searchValue = e.target.value;
+        // Nếu giá trị input không bắt đầu dấu cách sẽ set lại giá trị
+        if (!searchValue.startsWith(' ')) {
+            return setSearchValue(searchValue);
+        }
     };
 
     return (
@@ -155,7 +165,7 @@ function Search() {
                     value={searchValue}
                     placeholder="Search accounts and Videos"
                     spellCheck="false"
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleInput}
                     // Khi focus lại show Popper search
                     onFocus={() => setShowResult(true)}
                 />
@@ -168,7 +178,7 @@ function Search() {
                 )}
                 {loading && <FontAwesomeIcon icon={faSpinner} className={cx('loading')} />}
 
-                <button className={cx('searcth-btn')}>
+                <button className={cx('searcth-btn')} onMouseDown={(e) => e.preventDefault()}>
                     <SearchIcon />
                 </button>
             </div>

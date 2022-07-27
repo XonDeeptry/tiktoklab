@@ -22,6 +22,7 @@
         caret-color: var(--primary);
         // Clear ô vuông của input
         background-color: transparent;
+        font-family: var(--font-family);
     }
     // Truyền tới thẻ search btn khi không có placeholder (tức có input type vào)
     input:not(:placeholder-shown) ~ .searcth-btn {
