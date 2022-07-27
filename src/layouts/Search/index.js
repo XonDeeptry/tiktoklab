@@ -4,7 +4,7 @@ import classNames from 'classnames/bind';
 
 // Logic import
 import { useDebounce } from '~/hooks';
-import * as searchServices from '~/apiServices/searchServices';
+import * as searchService from '~/services/searchService';
 
 // Layout library import
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -108,7 +108,7 @@ function Search({ ...passPops }) {
 
         // SỬ DỤNG COMPONENT API SERVICES ĐỂ GỌI API VỚI ASYNC VÀ AWAIT
         const fetchApi = async () => {
-            const result = await searchServices.search(debounce);
+            const result = await searchService.search(debounce);
             setSearchResult(result);
             setLoading(false);
         };
