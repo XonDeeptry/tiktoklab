@@ -1,5 +1,6 @@
 // Logic library import
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 // Layout library import
 
@@ -22,5 +23,10 @@ function MenuItem({ data, onClick }) {
         </Button>
     );
 }
+
+MenuItem.propTypes = {
+    data: PropTypes.object,
+    onClick: PropTypes.func,
+};
 
 export default MenuItem;

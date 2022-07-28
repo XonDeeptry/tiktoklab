@@ -1,5 +1,6 @@
 // Logic library import
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 // Layout library import
 
@@ -14,5 +15,10 @@ const cx = classNames.bind(styles);
 function Wrapper({ children, className }) {
     return <div className={cx('popperwrapper', className)}>{children}</div>;
 }
+
+Wrapper.propTypes = {
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+};
 
 export default Wrapper;
