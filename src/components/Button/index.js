@@ -91,6 +91,22 @@ function Button({
 // Đối với children nó cần là ReactNode những thứ có thể render được vú dụ như string, số , number, array,... Để đảm bảo không nhận các method, fucntion không render khác sử dụng PropTypes để chỉ định cho props này.
 
 Button.propTypes = {
+    to: PropTypes.string,
+    href: PropTypes.string,
+    className: PropTypes.string,
+
+    primary: PropTypes.bool,
+    outline: PropTypes.bool,
+    text: PropTypes.bool,
+    rounded: PropTypes.bool,
+    disabled: PropTypes.bool,
+    small: PropTypes.bool,
+    large: PropTypes.bool,
+
+    onClick: PropTypes.func,
+
+    leftIcon: PropTypes.node,
+    rightIcon: PropTypes.node,
     children: PropTypes.node.isRequired,
 };
 

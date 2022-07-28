@@ -35,7 +35,7 @@ function AccountItem({ data }) {
 // Chú ý propTypes cần phải viết đúng chính tả
 
 AccountItem.propTypes = {
-    data: PropTypes.object,
+    data: PropTypes.object.isRequired,
 };
 
 export default AccountItem;

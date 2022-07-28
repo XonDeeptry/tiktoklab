@@ -1,5 +1,7 @@
 // Logic library import
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+
 // Layout library import
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,5 +24,10 @@ function Header({ title, onBack }) {
         </header>
     );
 }
+
+Header.propTypes = {
+    title: PropTypes.string.isRequired,
+    onBack: PropTypes.func,
+};
 
 export default Header;

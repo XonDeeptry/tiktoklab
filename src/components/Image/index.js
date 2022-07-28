@@ -1,6 +1,7 @@
 // Logic library import
 import { useState, forwardRef } from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 // Layout library import
 
@@ -59,6 +60,13 @@ const Image = forwardRef(({ className, src, alt, fallback: customFallback = imag
         />
     );
 });
+
+Image.propTypes = {
+    className: PropTypes.string,
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    fallback: PropTypes.string,
+};
 
 // Cách 1:
 // export default forwardRef(Image);

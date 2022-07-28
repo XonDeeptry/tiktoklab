@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 // Nhận giá trị chính là value search và thời gian chờ
 function useDebounce(value, delay) {
@@ -16,5 +17,10 @@ function useDebounce(value, delay) {
     // Trả lại giá trị khi không thay đổi.
     return debounceValue;
 }
+
+useDebounce.propTypes = {
+    value: PropTypes.node.isRequired,
+    delay: PropTypes.number,
+};
 
 export default useDebounce;

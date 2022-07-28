@@ -1,6 +1,7 @@
 // Logic library import
 import { useState } from 'react';
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 // Layout library import
 import Tippy from '@tippyjs/react/headless';
@@ -70,7 +71,7 @@ function Menu({ children, items = [], hideOnClick = true, onChange = defaultFn }
                         Curent luôn lấy phần tử cuối do đó để trở lại trang 1 chỉ cần xóa bỏ phần tử cuối đi mà thôi */}
                         {history.length > 1 && (
                             <Header
-                                title="Language"
+                                title={currentMenu.title}
                                 onBack={() => {
                                     setHistory((prev) => prev.slice(0, prev.length - 1));
                                 }}
@@ -86,5 +87,12 @@ function Menu({ children, items = [], hideOnClick = true, onChange = defaultFn }
         </Tippy>
     );
 }
+
+Menu.propTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.array,
+    hideOnClick: PropTypes.bool,
+    onChange: PropTypes.func,
+};
 
 export default Menu;

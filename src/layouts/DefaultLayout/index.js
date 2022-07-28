@@ -1,5 +1,6 @@
 // Logic library import
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 
 // Layout library import
 
@@ -23,5 +24,9 @@ function DefaultLayout({ children }) {
         </div>
     );
 }
+
+DefaultLayout.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 export default DefaultLayout;
