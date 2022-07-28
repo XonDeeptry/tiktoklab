@@ -58,31 +58,35 @@ function Menu({ children, items = [], hideOnClick = true, onChange = defaultFn }
         });
     };
 
+    const handleBack = () => {
+        setHistory((prev) => prev.slice(0, prev.length - 1));
+    };
+
+    const renderResults = (attrs) => (
+        <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
+            <PopperWrapper className={cx('menu-popper')}>
+                {/* Nếu history.length > 1 thì đang không ở trang 1
+                        Curent luôn lấy phần tử cuối do đó để trở lại trang 1 chỉ cần xóa bỏ phần tử cuối đi mà thôi */}
+                {history.length > 1 && <Header title={currentMenu.title} onBack={handleBack} />}
+                <div className={cx('menu-body')}>{renderItems()}</div>
+            </PopperWrapper>
+        </div>
+    );
+
+    // Reset to first page
+    const handleResetMenu = () => {
+        setHistory((prev) => prev.slice(0, 1));
+    };
+
     return (
         <Tippy
-            delay={[100, 500]}
+            delay={[0, 500]}
             interactive={true}
             placement="bottom-end"
             hideOnClick={hideOnClick}
-            render={(attrs) => (
-                <div className={cx('menu-list')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper className={cx('menu-popper')}>
-                        {/* Nếu history.length > 1 thì đang không ở trang 1
-                        Curent luôn lấy phần tử cuối do đó để trở lại trang 1 chỉ cần xóa bỏ phần tử cuối đi mà thôi */}
-                        {history.length > 1 && (
-                            <Header
-                                title={currentMenu.title}
-                                onBack={() => {
-                                    setHistory((prev) => prev.slice(0, prev.length - 1));
-                                }}
-                            />
-                        )}
-                        <div className={cx('menu-body')}>{renderItems()}</div>
-                    </PopperWrapper>
-                </div>
-            )}
+            render={renderResults}
             // Khi không sử dụng menu nữa tự động reset về phần tử đầu tiên
-            onHide={() => setHistory((prev) => prev.slice(0, 1))}>
+            onHide={handleResetMenu}>
             {children}
         </Tippy>
     );

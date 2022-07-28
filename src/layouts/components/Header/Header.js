@@ -114,7 +114,7 @@ const userMenu = [
 function Header() {
     // Tạo state đã chuyển sang component search tránh việc phải re-render cả component không liên quan
 
-    const currentUser = true;
+    const currentUser = false;
 
     // handle logic
     const handleMenuChange = (menuItem) => {
