@@ -11,6 +11,7 @@ function useDebounce(value, delay) {
         // Cleanup function xóa đi timer
         return () => clearTimeout(handler);
         // Khi giá trị đầu vào thay đổi thì mới gọi useEffect
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
     // Trả lại giá trị khi không thay đổi.
     return debounceValue;
