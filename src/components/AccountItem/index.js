@@ -1,6 +1,7 @@
 // Logic library import
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // Layout library import
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,5 +30,12 @@ function AccountItem({ data }) {
         </Link>
     );
 }
+
+// Fix prop return về và đảm bảo nó là object
+// Chú ý propTypes cần phải viết đúng chính tả
+
+AccountItem.propTypes = {
+    data: PropTypes.object,
+};
 
 export default AccountItem;

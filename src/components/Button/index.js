@@ -1,6 +1,7 @@
 // Logic library import
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 // Layout library import
 
@@ -86,5 +87,11 @@ function Button({
         </Comp>
     );
 }
+
+// Đối với children nó cần là ReactNode những thứ có thể render được vú dụ như string, số , number, array,... Để đảm bảo không nhận các method, fucntion không render khác sử dụng PropTypes để chỉ định cho props này.
+
+Button.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 export default Button;
