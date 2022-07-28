@@ -29,7 +29,7 @@ function Search({ ...passPops }) {
     const [loading, setLoading] = useState(false);
 
     // Truyền giá trị searchValue và thời gian chờ vào custom hook. Sau đó thay thế trong useEffect và call API
-    const debounce = useDebounce(searchValue, 500);
+    const debounceValue = useDebounce(searchValue, 500);
 
     const inputRef = useRef();
 
@@ -38,7 +38,7 @@ function Search({ ...passPops }) {
         // API được set giá trị bắt buộc phải có ở query. Tuy nhiên giá trị mặc định của searchValue là chuỗi rỗng dẫn tới lỗi.
         // Kiểm tra nếu searchValue không có return luôn không gọi API. Khi nào searchValue có giá trị thì mới tiến hành gọi API
         // Ở back end thường chuỗi rỗng như space sẽ bị trim => xảy ra lỗi do truyền chuỗi rỗng. Thực hiện gọi hàm trim để cắt chuỗi rỗng
-        if (!debounce.trim()) {
+        if (!debounceValue.trim()) {
             // Khi không có dữ liệu thì searchResult (mảng chứa các thành phần search) bằng mảng rỗng
             setSearchResult([]);
             return;
@@ -50,7 +50,7 @@ function Search({ ...passPops }) {
         // khi truyền vào ký tự đặc biệt sẽ dẫn tới một số lỗi. liên quan tới logic và qui ước. CÓ thể thực hiện việc mã hóa để xử lý lỗi này. nó sẽ mã hóa các ký tự đặc biệt thành ký tự hợp lệ trên URL
         // Gọi API truyền thống thông qua Promise
         /**
-         * fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`)
+         * fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounceValue)}&type=less`)
             .then((res) => res.json())
             .then((res) => {
                 setSearchResult(res.data);
@@ -58,13 +58,13 @@ function Search({ ...passPops }) {
             });
          */
         // SỬ DỤNG AXIOS ĐỂ GỌI API
-        // axios.get(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounce)}&type=less`);
+        // axios.get(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounceValue)}&type=less`);
         // Mặc định Axios sẽ convert json thành js do đó có thể skip phần convert đối với Promise
         // SỬ DỤNG COMPONENT ĐỂ GỌI API
         // request
         //     .get(`users/search`, {
         //         params: {
-        //             q: debounce,
+        //             q: debounceValue,
         //             type: 'less',
         //         },
         //     })
@@ -72,7 +72,7 @@ function Search({ ...passPops }) {
         // request
         //     .get(`users/search`, {
         //         params: {
-        //             q: debounce,
+        //             q: debounceValue,
         //             type: 'less',
         //         },
         //     })
@@ -94,7 +94,7 @@ function Search({ ...passPops }) {
         //     try {
         //         const res = await request.get('users/search', {
         //             params: {
-        //                 q: debounce,
+        //                 q: debounceValue,
         //                 type: 'less',
         //             },
         //         });
@@ -108,14 +108,14 @@ function Search({ ...passPops }) {
 
         // SỬ DỤNG COMPONENT API SERVICES ĐỂ GỌI API VỚI ASYNC VÀ AWAIT
         const fetchApi = async () => {
-            const result = await searchService.search(debounce);
+            const result = await searchService.search(debounceValue);
             setSearchResult(result);
             setLoading(false);
         };
         fetchApi();
 
         // Neues searchValue thay đổi render lại
-    }, [debounce]);
+    }, [debounceValue]);
 
     const handleClear = () => {
         setSearchValue('');

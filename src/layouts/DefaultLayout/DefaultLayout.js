@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import styles from './DefaultLayout.module.scss';
 
 // Component import
-import Header from '~/layouts/Header';
-import Sidebar from '~/layouts/Sidebar';
+import Header from '~/layouts/components/Header';
+import Sidebar from '~/layouts/components/Sidebar';
 
 const cx = classNames.bind(styles);
 
