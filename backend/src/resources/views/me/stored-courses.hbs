@@ -16,11 +16,13 @@
         <tbody>
             {{#each courses}}
             <tr>
+              {{!-- Gọi function helpers và truyền 2 đối số của nó vào --}}
                 <th scope="row">{{sum @index 1}}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.level}}</td>
                 <td>{{this.createdAt}}</td>
                 <td>
+                  {{!-- _id lấy từ mongoDB _id trường tự generate của mongodb --}}
                     <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
                     <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Xóa</a>
                 </td>
@@ -59,9 +61,11 @@
 </div>
 
 {{!-- Delete hidden form --}}
+{{!-- Tạo form để có thể tiến hành method override --}}
 <form name="delete-course-form" method="POST"></form>
 
 <script>
+  {{!-- Dấu $ là từ thư viện jquery tuy nhiên thư viện này chỉ được nạp vào khi DOM được đọc xong. Do đó cần listen event DOM đã load hết sau đó nạp vào một function mới --}}
     document.addEventListener('DOMContentLoaded', function() {
         var courseId;
         var deleteForm = document.forms['delete-course-form'];
@@ -74,6 +78,7 @@
         
         // When delete course btn clicked
         btnDeleteCourse.onclick = function () {
+          {{!-- Bổ sung form vào delete form để tuân thủ RESTful API --}}
             deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
             deleteForm.submit();
         }

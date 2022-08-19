@@ -18,6 +18,7 @@ const Course = new Schema(
         slug: { type: String, slug: 'name', unique: true },
     },
     {
+        // Tự động tạo thời điểm khởi tạo dữ liệu và thời điểm thay đổi dữ liệu.
         timestamps: true,
     },
 );
@@ -29,4 +30,5 @@ Course.plugin(mongooseDelete, {
     overrideMethods: 'all',
 });
 
+// using models: mongoose.models('modelname', Model)
 export default mongoose.model('Course', Course);

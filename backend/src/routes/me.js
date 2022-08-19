@@ -8,6 +8,7 @@ const router = express.Router();
 const meController = new MeController();
 
 router.get('/stored/courses', meController.storedCourses);
+router.get('/stored/news', meController.storedNews);
 router.get('/trash/courses', meController.trashCourses);
 
 export default router;

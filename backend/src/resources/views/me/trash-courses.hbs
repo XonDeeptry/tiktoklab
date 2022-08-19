@@ -65,7 +65,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var courseId;
         var deleteForm = document.forms['delete-course-form'];
-        var restoreForm = document.forms['restore-course-form'];
+        var restoreForm = document.forms['restorSe-course-form'];
         var btnDeleteCourse = document.getElementById('btn-delete-course');
         var restoreBtn = $('.btn-restore');
         // When dialog confirm clicked
@@ -81,6 +81,7 @@
         }
         // Restore btn clicked
         restoreBtn.click(function (e) {
+          // prevent a tag auto redirect to this site (blank it will refresh site.)
           e.preventDefault();
           
           var courseId = $(this).data('id');

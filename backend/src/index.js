@@ -45,6 +45,7 @@ app.engine(
     'hbs',
     engine({
         extname: '.hbs',
+        // khởi tạo bổ sung thêm một function helpers cho handlerbars
         helpers: {
             sum: (a, b) => a + b,
         },

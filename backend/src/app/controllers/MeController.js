@@ -27,6 +27,9 @@ class MeController {
             )
             .catch(next);
     }
+    storedNews(req, res, next) {
+        res.render('me/stored-news');
+    }
 }
 
 export default MeController;
