@@ -4,7 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from '~/layouts';
 
+// dbconnect
+// import connect from '~/config/db';
+
 function App() {
+    // connect to database
+    // config.connect();
     return (
         <Router>
             <div className="App">
